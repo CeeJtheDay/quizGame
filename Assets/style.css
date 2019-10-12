@@ -1,0 +1,19 @@
+#viewHS {
+    position: fixed;
+    left: 0;
+}
+
+#timer {
+    position: fixed;
+    right: 0;
+}
+
+#questionBox {
+    height: 500px;
+    width: 750px;
+    border: solid 1px black;
+    padding: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+}
