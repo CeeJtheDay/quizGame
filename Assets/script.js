@@ -44,6 +44,7 @@
 
     // fish quiz
 
+    var questionCount = 0;
     var Score = 0;
     var qDisplay = $("#queDisplay");
     var aDisplay = $("#ansDisplay");
@@ -60,49 +61,58 @@
             {
               title: "How many kinds of pacific salmon are there??",
               choices: ["two", "three", "four", "five", "six"],
-              answer: "six"
+              answer: "six",
+              questionCount: 1
             },
             {
               title: "true or false: By weight, all of the cephalopods in the ocean weigh more than the entire human poulation",
               choices: ["true", "false"],
-              answer: "true"
+              answer: "true",
+              questionCount: 2
             },
             {
               title: "How long is the average lifespan of an octopus?",
               choices: ["1-2 years", "4-6 years", "8-10 years", "12-15 years"],
-              answer: "1-2 years"
+              answer: "1-2 years",
+              questionCount: 3
             },
             {
               title: "Approximately how many species of fish are there worldwide?",
               choices: ["9,000", "27,000", "56,000", "72,000"],
-              answer: "27,000"
+              answer: "27,000",
+              questionCount: 4
             },
             {
               title: "What is the largest species of fish?",
               choices: ["Whale Shark", "Giant Gaourami", "Blufin Tuna", "Blue Whale"],
-              answer: "Whae Shark"
+              answer: "Whae Shark",
+              questionCount: 5
             },
         ];
         aDisplay.empty();
         rwDisplay.empty();
     // presents first question with answers
-      fishQuestions.forEach(function(question){
-          var curQuestion = question.title;
-          var curAnswers = question.choices;
-          var curCorrect = question.answer;
-          qDisplay.text(curQuestion);
-          var ansButton = curAnswers.forEach(createButton());
-          aDisplay.append(ansButton);
-          curAnswers.on("click", function qCounter(){
+    fishQuestions.forEach(function(question){
+        var curQuestion = question.title;
+        var answerButton = question.choices;
+        var curCorrect = question.answer;
+        qDisplay.text(curQuestion);
+        
+        for (i = 0; i < answerButton.length; i++){
+        var curButton = createButton.text(anserButton[i]);
+            aDisplay.append(curButton);
+        }
+
+        $("button").on("click", function qCounter(){
             for (i=0; i < fishQuestions.length; i++) {
                 if (curCorrect) {
-                    rwDisplay.text("Correct!");
+                rwDisplay.text("Correct!");
                 } else {
-                    rwDisplay.text("Incorrect!");
+                rwDisplay.text("Incorrect!");
                 }
             }
-          })
-      });
+        })
+    });
 
    
     });
