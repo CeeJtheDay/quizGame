@@ -22,7 +22,7 @@ var fishQuestions = [
   {
     title: "What is the largest species of fish?",
     choices: ["Whale Shark", "Giant Gaourami", "Blufin Tuna", "Blue Whale"],
-    answer: "Whae Shark"
+    answer: "Whale Shark"
   },
 ];
 
@@ -39,6 +39,7 @@ var timer = $("#timer");
 function startGame() {
   displayQuestion();
   displayAnswers();
+  checkAnswer();
 };
 
 function setTime() {
@@ -67,20 +68,58 @@ function displayAnswers() {
     aDisplay.append("<button>" + answer + "</button");
     $("button").addClass("answer-button");
   })
-  $(".answer-button").on("click", function () {
-    // for (j = 0; j < questions.choices.length; j++) {
-      Answer = questions.answer;
-      if (event === answer) {
-        score + 5;
-        rwDisplay.text("Correct!");
-      } else {
-        score - 5;
-        secondsLeft - 15;
-        rwDisplay.text("Nope!");
-      }
-      qIndex++;
-    })
 };
+
+function checkAnswer() {
+  var answers = questions.choices;
+  $(".answer-button").on("click", function () {
+    $.each(answers, function(i, answer){
+      if (answer === questions.answer) {
+        answers.attr("correct", "true");
+        // score + 5;
+        // rwDisplay.text("Correct!");
+      } else {
+        answers.attr("correct", "false");
+        // score - 5;
+        // secondsLeft - 15;
+        // rwDisplay.text("Nope!");
+      }
+    })
+    var buttonCheck = $(this).correct.val();
+    if (buttonCheck === "true") {
+      score = 5;
+      rwDisplay.text("Correct!");
+    } else {
+      score - 5;
+      secondsLeft - 15;
+      rwDisplay.text("Nope!");
+    }
+  })
+};
+    // for (i = 0; i < answers.length; i++) {
+    //   if (answers[i] === questions.answer) {
+    //     $(this).attr("correct", "true");
+    //     // score + 5;
+    //     // rwDisplay.text("Correct!");
+    //   } else {
+    //     $(this).attr("correct", "false");
+    //     // score - 5;
+    //     // secondsLeft - 15;
+    //     // rwDisplay.text("Nope!");
+    //   }
+    //   // qIndex++;
+    // }
+      // var buttonCheck = $(this).correct.value();
+      // if (buttonCheck === "true") {
+      //   score = 5;
+      //   rwDisplay.text("Correct!");
+      // } else {
+      //   score - 5;
+      //   secondsLeft - 15;
+      //   rwDisplay.text("Nope!");
+      // }
+  
+
   // for (i = 0; i < curAnswers, length; i++) {
   //   var buttons = $("<button>").text(curAnswers[i]);
   //   $("button").addClass("answer-button");
