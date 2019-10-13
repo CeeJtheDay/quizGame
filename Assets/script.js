@@ -42,6 +42,11 @@ function startGame() {
   checkAnswer();
 };
 
+function clearText(){
+  qDisplay.empty();
+  aDisplay.empty();
+}
+
 function setTime() {
   var timerInterval = setInterval(function () {
     secondsLeft--;
@@ -55,47 +60,100 @@ function setTime() {
   }, 1250)
 };
 
-function displayQuestion() {
-  var curQuestion = questions.title;
-  //presents question to user
-  qDisplay.text(curQuestion);
-};
-//presents answers to user
-// funtion to diplay answer buttons
-function displayAnswers() {
-  var curAnswers = questions.choices;
-  $.each(curAnswers, function(i, answer){
-    aDisplay.append("<button>" + answer + "</button");
-    $("button").addClass("answer-button");
-  })
-};
+// function displayQuestion() {
+//   var curQuestion = questions.title;
+//   //presents question to user
+//   qDisplay.text(curQuestion);
+// };
+// //presents answers to user
+// // funtion to diplay answer buttons
+// function displayAnswers() {
+//   var curAnswers = questions.choices;
+//   $.each(curAnswers, function(i, answer){
+//     aDisplay.append("<button>" + answer + "</button");
+//     $("button").addClass("answer-button ");
+//   })
+// };
 
-function checkAnswer() {
-  var answers = questions.choices;
-  $(".answer-button").on("click", function () {
-    $.each(answers, function(i, answer){
-      if (answer === questions.answer) {
-        answers.attr("correct", "true");
-        // score + 5;
-        // rwDisplay.text("Correct!");
-      } else {
-        answers.attr("correct", "false");
-        // score - 5;
-        // secondsLeft - 15;
-        // rwDisplay.text("Nope!");
-      }
-    })
-    var buttonCheck = $(this).correct.val();
-    if (buttonCheck === "true") {
-      score = 5;
-      rwDisplay.text("Correct!");
-    } else {
-      score - 5;
-      secondsLeft - 15;
-      rwDisplay.text("Nope!");
-    }
-  })
-};
+// function checkAnswer() {
+//   var answer = questions.answer;
+//   $(".answer-button").on("click", function(){
+//     var userPick = event.target.textContent;
+//     console.log(userPick);
+//     if (userPick === answer) {
+//       score = 5;
+//       rwDisplay.text("Correct!");
+//     } else {
+//       score - 5;
+//       secondsLeft - 15;
+//       rwDisplay.text("Nope!");
+//     }
+//     qIndex++;
+//     clearText();
+//     console.log(qIndex);
+//   })
+
+// };
+// function checkAnswer() {
+//   var answers = questions.choices;
+//   $(".answer-button").on("click", function () {
+//     $.each(answers, function(answer){
+//       if (answer === questions.answer) {
+//         event.target.value = "Correct!"
+//         score + 5;
+//       } else {
+//         event.target.value = "Nope!"
+//         score - 5;
+//         secondsLeft - 15;
+//       }
+//     })
+//   })
+// };
+// function checkAnswer() {
+//   var answers = questions.choices;
+//   $(".answer-button").on("click", function () {
+//     $.each(answers, function(i, answer){
+//       if (answer === questions.answer) {
+//         score + 5;
+//         rwDisplay.text("Correct!");
+//       } else {
+//         score - 5;
+//         secondsLeft - 15;
+//         rwDisplay.text("Nope!");
+//       }
+//     if (answer === "true") {
+//       score = 5;
+//       rwDisplay.text("Correct!");
+//     } else {
+//       score - 5;
+//       secondsLeft - 15;
+//       rwDisplay.text("Nope!");
+//     }
+// function checkAnswer() {
+//   var answers = questions.choices;
+//   $(".answer-button").on("click", function () {
+//     $.each(answers, function(i, answer){
+//       if (answer === questions.answer) {
+//         answer = "true";
+//         // score + 5;
+//         // rwDisplay.text("Correct!");
+//       } else {
+//         answer = "false";
+//         // score - 5;
+//         // secondsLeft - 15;
+//         // rwDisplay.text("Nope!");
+//       }
+//     if (answer === "true") {
+//       score = 5;
+//       rwDisplay.text("Correct!");
+//     } else {
+//       score - 5;
+//       secondsLeft - 15;
+//       rwDisplay.text("Nope!");
+//     }
+//     })
+//   })
+// };
     // for (i = 0; i < answers.length; i++) {
     //   if (answers[i] === questions.answer) {
     //     $(this).attr("correct", "true");
@@ -147,33 +205,62 @@ function checkAnswer() {
 
 // ---- Start game ---
 $("#start").on("click", function () {
-  qDisplay.empty();
-  aDisplay.empty();
   rwDisplay.empty();
-  setTime();
-  startGame();
+  clearText();
   // 1.start Timer
-
+  setTime();
   // -- Cycle Questions ---
   //     // 2.pick a card (loop)
+  startGame();
+
+
+  
+
 });
 
     // -- Read question & choices --
         // 3.read the question
+        function displayQuestion() {
+          var curQuestion = questions.title;
+          //presents question to user
+          qDisplay.text(curQuestion);
+        };
         // 4.read the answers
-            // a. read all possible answers (loop)
+        function displayAnswers() {
+          var curAnswers = questions.choices;
+           // a. read all possible answers (loop)
+          $.each(curAnswers, function(i, answer){
+            aDisplay.append("<button>" + answer + "</button");
+            $("button").addClass("answer-button ");
+          })
+        };
 
-        // -- Wait for choice --
-        // 5.choose an answer (click handler)
-        // $(".answer-button").on("click", function(){
-        //   for (j = 0; j < questions.choices.length; j++) {
-
-        //   }
-        // })
         // -- Check Answer --
-        // 6.is the answer right?
-        // 7.if its right raise score 5pts
-        // 8.if its wrong take 5 points away, or time away
+        function checkAnswer() {
+          var answer = questions.answer;
+           // 5.choose an answer (click handler)
+          $(".answer-button").on("click", function(){
+             // -- Wait for choice --
+            var userPick = event.target.textContent;
+            console.log(userPick);
+             // -- Check Answer --
+             // 6.is the answer right?
+            if (userPick === answer) {
+            // 7.if its right raise score 5pts
+              score + 5;
+              rwDisplay.text("Correct!");
+            } else {
+              // 8.if its wrong take 5 points away, or time away
+              score - 5;
+              secondsLeft - 15;
+              rwDisplay.text("Nope!");
+            }
+            qIndex++;
+            clearText();
+            console.log(qIndex);
+          })
+        
+        };
 
     // -- Next Question --
     // 9.see step 2
