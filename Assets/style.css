@@ -55,6 +55,7 @@
     height: 100px;
     margin: 0 auto 40px auto;
     padding: 20px;
+    text-align: center;
 }
 
 .answer-button {
@@ -62,6 +63,7 @@
     background-color: purple;
     color: white;
     border-radius: 15px;
+    margin: 10px;
 }
 
 #rwDisplay {
