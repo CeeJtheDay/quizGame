@@ -29,27 +29,28 @@ var fishQuestions = [
 ];
 
 var qIndex = 0;
-var Score = 0;
+var score = 0;
 var secondsLeft = 75;
 var questions = fishQuestions[qIndex];
 var qDisplay = $("#queDisplay");
 var aDisplay = $("#ansDisplay");
 var rwDisplay = $("#rwDisplay");
-var createButton = $("<button>");
 var timer = $("#timer");
 
+function createButton(){
+  $("<button>");
+};
+
 function startGame() {
-  setTime();
   displayQuestion();
   displayAnswers();
-
-}
+};
 
 function setTime() {
   var timerInterval = setInterval(function() {
     secondsLeft--;
-    var startTime = $("#timer").hjtml();
-    timer.html(startTime + secondsLeft);
+    var startTime = $("#timer").html();
+    timer.html(secondsLeft);
 
     if(secondsLeft === 0) {
       clearInterval(timerInterval);
@@ -68,10 +69,10 @@ function displayQuestion (){
     // funtion to diplay answer buttons
 function displayAnswers(){
   var curAnswers = questions.choices;
-  for (i = 0; i < curAnswers.length; i++) {
-    var button = createButton.text(curAnswers[i]);
-    button.addClass("answer-button");
-    aDisplay.append(button);
+  curAnswers.forEach(createButton()); 
+    $("button").addClass("answer-button");
+    aDisplay.append($("button"));
+  }
     // -- Check Answer --
     $(".answer-button").on("click", function(){
       for (j = 0; j < questions.choices.length; j++) {
@@ -88,16 +89,18 @@ function displayAnswers(){
        qIndex++;
       }
     });
-  }
-};
 
 
 
  // ---- Start game ---
  $("#start").on("click", function () {
+  qDisplay.empty();
+  aDisplay.empty();
+  rwDisplay.empty();
+  setTime();
   startGame();
 // 1.start Timer
-  setTime();
+  
   // -- Cycle Questions ---
 //     // 2.pick a card (loop)
   });
