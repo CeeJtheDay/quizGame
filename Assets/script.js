@@ -29,49 +29,53 @@ var fishQuestions = [
 var qIndex = 0;
 var score = 0;
 var secondsLeft = 75;
-var questions = fishQuestions[qIndex];
 var qDisplay = $("#queDisplay");
 var aDisplay = $("#ansDisplay");
 var rwDisplay = $("#rwDisplay");
 var timer = $("#timer");
 
-function displayQuestion() {
-  var curQuestion = questions.title;
+function displayQuestion(x) {
+  var curQuestion = fishQuestions[x].title;
+  clearText();
   qDisplay.text(curQuestion);
-};
-
-function displayAnswers() {
-  var curAnswers = questions.choices;
-  $.each(curAnswers, function (i, answer) {
-    aDisplay.append("<button>" + answer + "</button");
-    $("button").addClass("answer-button ");
-  })
-};
-
-function checkAnswer() {
-  var answer = questions.answer;
-  $(".answer-button").on("click", function () {
-    var userPick = event.target.textContent;
-    console.log(userPick);
-    if (userPick === answer) {
-      score + 5;
-      rwDisplay.text("Correct!");
-    } else {
-      score - 5;
-      secondsLeft - 15;
-      rwDisplay.text("Nope!");
-    }
-    qIndex++;
-    clearText();
-    console.log(qIndex);
-  })
-};
-
-
-function startGame() {
-  displayQuestion();
   displayAnswers();
-  checkAnswer();
+
+  function displayAnswers() {
+    var curAnswers = fishQuestions[x].choices;
+
+    $.each(curAnswers, function (i, answer) {
+      aDisplay.append("<button>" + answer + "</button");
+      $("button").addClass("answer-button ");
+    })
+    checkAnswer();
+
+    function checkAnswer() {
+      var answer = fishQuestions[x].answer;
+      $(".answer-button").on("click", function () {
+        var userPick = event.target.textContent;
+        console.log(userPick);
+        if (userPick === answer) {
+          clearText();
+          score = score + 5;
+          rwDisplay.text("Correct!");
+        } else {
+          clearText();
+          score = score - 5;
+          secondsLeft = secondsLeft - 15;
+          rwDisplay.text("Nope!");
+        }
+        if (qIndex < 4) {
+          qIndex++;
+          console.log(qIndex);
+          console.log(userPick);
+          console.log(score);
+          return displayQuestion(qIndex);
+        } else {
+          showHS();
+        }
+      });
+    };
+  };
 };
 
 function clearText() {
@@ -80,43 +84,56 @@ function clearText() {
 }
 
 function setTime() {
-  var timerInterval = setInterval(function () {
+   var startTime = setInterval(function () {
     secondsLeft--;
-    var startTime = $("#timer").html();
     timer.html(secondsLeft);
 
     if (secondsLeft === 0) {
-      clearInterval(timerInterval);
-    } 
+      clearInterval(startTime);
+      showHS();
+    };
+
+
 
   }, 1250)
+};
+
+function showHS() {
+  clearText();
+  rwDisplay.empty();
+  qDisplay.text("High Scores");
+  aDisplay.append("<p> Enter your initials </p>");
+  $("p").addClass("inputHeader")
+  aDisplay.append("<input></input>");
+  $("input").addClass("hsInput");
+  if (qIndex === 4) {
+    score = score + secondsLeft;
+  } else {
+    score = score - secondsLeft;
+  }
 };
 
 // ---- Start game ---
 $("#start").on("click", function () {
   rwDisplay.empty();
-  clearText();
   // 1.start Timer
   setTime();
   // -- Cycle Questions ---
-  //     // 2.pick a card (loop)
-  startGame();
-});
-
-// -- Read question & choices --
-// 3.read the question
- //presents question to user
-// 4.read the answers
+  //     // 2.pick a card
+  // -- Read question & choices --
+  // 3.read the question
+  //presents question to user
+  // 4.read the answers
   // a. read all possible answers (loop)
-// -- Check Answer --
+  // -- Check Answer --
   // 5.choose an answer (click handler)
-    // -- Wait for choice --
-    // -- Check Answer --
-    // 6.is the answer right?
-      // 7.if its right raise score 5pts
-      // 8.if its wrong take 5 points away, or time away
+  // -- Wait for choice --
+  // 6.is the answer right?
+  // 7.if its right raise score 5pts
+  // 8.if its wrong take 5 points away, or time away
+  displayQuestion(qIndex);
+});
     // -- Next Question --
     // 9.see step 2
-
 // -- End Game --
 // 10. show score and record name
