@@ -55,20 +55,36 @@ function setTime() {
 };
 
 function showHS() {
+  var pastPlayerName = localStorage.getItem("name");
+  var pastPlayerScore = localStorage.getItem("score");
   clearText();
   rwDisplay.empty();
+
   qDisplay.text("High Scores");
   aDisplay.append("<form><div class='form-group'><input type='text' class='form-control'placeholder='Enter your initials'></div></form>");
-  aDisplay.append("<br><br> <button> Submit </button>");
-  $("button").addClass("submit");
+  aDisplay.append("<br> <button> Submit </button>");
+  $("button").attr("id", "submit");
   rwDisplay.append("<ul id='hs-list'></ul>");
   $("ul").addClass("hsList");
+  rwDisplay.append("<li class = highScore>" + "Player: " + pastPlayerName + " Score: " + pastPlayerScore + "</li>");
   if (qIndex === 4) {
     score = score + secondsLeft;
   } else {
     score = score - secondsLeft;
   }
+  storeNames();
 };
+
+function storeNames(){
+  $("#submit").on("click", function(event) {
+    event.preventDefault();
+    var playerName = $("input").val();
+    console.log($("input").val());
+    localStorage.setItem("name", JSON.stringify(playerName));
+    localStorage.setItem("score", JSON.stringify(score));
+    rwDisplay.append("<li class = highScore>" + "Player: "+ playerName + " Score: " + score + "</li");
+  })
+}
 
 // ---- Start game ---
 $("#start").on("click", function () {
