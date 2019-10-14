@@ -34,6 +34,49 @@ var aDisplay = $("#ansDisplay");
 var rwDisplay = $("#rwDisplay");
 var timer = $("#timer");
 
+function clearText() {
+  qDisplay.empty();
+  aDisplay.empty();
+}
+
+function setTime() {
+  setInterval(function () {
+    secondsLeft--;
+    timer.html(secondsLeft);
+
+    if (secondsLeft === 0) {
+      clearInterval(secondsLeft);
+      showHS();
+    };
+
+
+
+  }, 1250)
+};
+
+function showHS() {
+  clearText();
+  rwDisplay.empty();
+  qDisplay.text("High Scores");
+  aDisplay.append("<form><div class='form-group'><input type='text' class='form-control'placeholder='Enter your initials'></div></form>");
+  aDisplay.append("<br><br> <button> Submit </button>");
+  $("button").addClass("submit");
+  rwDisplay.append("<ul id='hs-list'></ul>");
+  $("ul").addClass("hsList");
+  if (qIndex === 4) {
+    score = score + secondsLeft;
+  } else {
+    score = score - secondsLeft;
+  }
+};
+
+// ---- Start game ---
+$("#start").on("click", function () {
+  rwDisplay.empty();
+  setTime();
+  displayQuestion(qIndex);
+});
+
 function displayQuestion(x) {
   var curQuestion = fishQuestions[x].title;
   clearText();
@@ -77,64 +120,3 @@ function displayQuestion(x) {
     };
   };
 };
-
-function clearText() {
-  qDisplay.empty();
-  aDisplay.empty();
-}
-
-function setTime() {
-   setInterval(function () {
-    secondsLeft--;
-    timer.html(secondsLeft);
-
-    if (secondsLeft === 0) {
-      clearInterval(secondsLeft);
-      showHS();
-    };
-
-
-
-  }, 1250)
-};
-
-function showHS() {
-  clearText();
-  rwDisplay.empty();
-  qDisplay.text("High Scores");
-  aDisplay.append("<form><div class='form-group'><input type='text' class='form-control'placeholder='Enter your initials'></div></form>");
-  aDisplay.append("<br><br> <button> Submit </button>");
-  $("button").addClass("submit");
-  rwDisplay.append("<ul id='hs-list'></ul>");
-  $("ul").addClass("hsList");
-  if (qIndex === 4) {
-    score = score + secondsLeft;
-  } else {
-    score = score - secondsLeft;
-  }
-};
-
-// ---- Start game ---
-$("#start").on("click", function () {
-  rwDisplay.empty();
-  // 1.start Timer
-  setTime();
-  // -- Cycle Questions ---
-  //     // 2.pick a card
-  // -- Read question & choices --
-  // 3.read the question
-  //presents question to user
-  // 4.read the answers
-  // a. read all possible answers (loop)
-  // -- Check Answer --
-  // 5.choose an answer (click handler)
-  // -- Wait for choice --
-  // 6.is the answer right?
-  // 7.if its right raise score 5pts
-  // 8.if its wrong take 5 points away, or time away
-  displayQuestion(qIndex);
-});
-    // -- Next Question --
-    // 9.see step 2
-// -- End Game --
-// 10. show score and record name
