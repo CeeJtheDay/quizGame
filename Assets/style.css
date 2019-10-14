@@ -16,7 +16,7 @@
     position: fixed;
     right: 0;
     color: white;
-    background-color: red;
+    background-color: purple;
     width: 200px;
     font-weight: bold;
     font-size: 20px;
@@ -44,7 +44,7 @@
 
 #queDisplay {
     font-weight: bold;
-    font-size: 25px;
+    font-size: 30px;
     text-align: center;
     margin: 50px auto 30px auto;
     padding: 20px;
@@ -72,4 +72,30 @@
     font-size: 20px;
     padding: 30px;
     
+}
+
+.inputHeader {
+    color: purple;
+    font-weight: bold;
+}
+
+.form-group {
+    text-align: center;
+}
+
+.submit {
+    background-color: purple;
+    color: white;
+    width: 100px;
+    border-radius: 15px;
+}
+
+@media only screen and (max-width: 770px) {
+
+    #ansDisplay {
+        height: 100px;
+        margin: 0 auto 80px auto;
+        padding: 20px;
+        text-align: center;
+    }
 }

@@ -84,12 +84,12 @@ function clearText() {
 }
 
 function setTime() {
-   var startTime = setInterval(function () {
+   setInterval(function () {
     secondsLeft--;
     timer.html(secondsLeft);
 
     if (secondsLeft === 0) {
-      clearInterval(startTime);
+      clearInterval(secondsLeft);
       showHS();
     };
 
@@ -102,10 +102,11 @@ function showHS() {
   clearText();
   rwDisplay.empty();
   qDisplay.text("High Scores");
-  aDisplay.append("<p> Enter your initials </p>");
-  $("p").addClass("inputHeader")
-  aDisplay.append("<input></input>");
-  $("input").addClass("hsInput");
+  aDisplay.append("<form><div class='form-group'><input type='text' class='form-control'placeholder='Enter your initials'></div></form>");
+  aDisplay.append("<br><br> <button> Submit </button>");
+  $("button").addClass("submit");
+  rwDisplay.append("<ul id='hs-list'></ul>");
+  $("ul").addClass("hsList");
   if (qIndex === 4) {
     score = score + secondsLeft;
   } else {
